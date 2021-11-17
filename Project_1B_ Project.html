@@ -13186,18 +13186,14 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># checking your current working directory</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
-
-<span class="c1"># Get your current folder and subfolder event data</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
 <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/event_data&#39;</span>
 
-<span class="c1"># Create a for loop to create a list of files and collect each filepath</span>
+<span class="c1"># Creating a for loop to create a list of files and collect each filepath</span>
 <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
     
-<span class="c1"># join the file path and roots with the subdirectories using glob</span>
+<span class="c1"># joining the file path and roots with the subdirectories using glob</span>
     <span class="n">file_path_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">))</span>
-    <span class="c1">#print(file_path_list)</span>
 </pre></div>
 
     </div>
@@ -13232,7 +13228,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># initiating an empty list of rows that will be generated from each file</span>
@@ -13251,11 +13247,6 @@ div#notebook {
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">csvreader</span><span class="p">:</span>
             <span class="c1">#print(line)</span>
             <span class="n">full_data_rows_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> 
-            
-<span class="c1"># uncomment the code below if you would like to get total number of rows </span>
-        <span class="c1">#print(len(full_data_rows_list))</span>
-<span class="c1"># uncomment the code below if you would like to check to see what the list of event data rows will look like</span>
-        <span class="c1">#print(full_data_rows_list)</span>
 
 <span class="c1"># creating a smaller event data csv file called event_datafile_full csv that will be used to insert data into the \</span>
 <span class="c1"># Apache Cassandra tables</span>
@@ -13278,10 +13269,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># check the number of rows in your csv file</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># checking the number of rows in our csv file</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;event_datafile_new.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">))</span>
 </pre></div>
@@ -13348,13 +13339,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This should make a connection to a Cassandra instance your local machine </span>
-<span class="c1"># (127.0.0.1)</span>
-
-<span class="kn">from</span> <span class="nn">cassandra.cluster</span> <span class="k">import</span> <span class="n">Cluster</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">cassandra.cluster</span> <span class="k">import</span> <span class="n">Cluster</span>
 <span class="n">cluster</span> <span class="o">=</span> <span class="n">Cluster</span><span class="p">([</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">])</span>
 
 <span class="c1"># To establish connection and begin executing queries, need a session</span>
@@ -13375,12 +13363,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TO-DO: Create a Keyspace </span>
-
-<span class="k">try</span><span class="p">:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    CREATE KEYSPACE IF NOT EXISTS mydb </span>
 <span class="s2">    WITH REPLICATION = </span>
@@ -13405,11 +13391,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TO-DO: Set KEYSPACE to the keyspace specified above</span>
-<span class="k">try</span><span class="p">:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="n">session</span><span class="o">.</span><span class="n">set_keyspace</span><span class="p">(</span><span class="s1">&#39;mydb&#39;</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
@@ -13423,23 +13408,19 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Now-we-need-to-create-tables-to-run-the-following-queries.-Remember,-with-Apache-Cassandra-you-model-the-database-tables-on-the-queries-you-want-to-run.">Now we need to create tables to run the following queries. Remember, with Apache Cassandra you model the database tables on the queries you want to run.<a class="anchor-link" href="#Now-we-need-to-create-tables-to-run-the-following-queries.-Remember,-with-Apache-Cassandra-you-model-the-database-tables-on-the-queries-you-want-to-run.">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Create-queries-to-ask-the-following-three-questions-of-the-data">Create queries to ask the following three questions of the data<a class="anchor-link" href="#Create-queries-to-ask-the-following-three-questions-of-the-data">&#182;</a></h2><h3 id="1.-Give-me-the-artist,-song-title-and-song's-length-in-the-music-app-history-that-was-heard-during--sessionId-=-338,-and-itemInSession--=-4">1. Give me the artist, song title and song's length in the music app history that was heard during  sessionId = 338, and itemInSession  = 4<a class="anchor-link" href="#1.-Give-me-the-artist,-song-title-and-song's-length-in-the-music-app-history-that-was-heard-during--sessionId-=-338,-and-itemInSession--=-4">&#182;</a></h3><h3 id="2.-Give-me-only-the-following:-name-of-artist,-song-(sorted-by-itemInSession)-and-user-(first-and-last-name)-for-userid-=-10,-sessionid-=-182">2. Give me only the following: name of artist, song (sorted by itemInSession) and user (first and last name) for userid = 10, sessionid = 182<a class="anchor-link" href="#2.-Give-me-only-the-following:-name-of-artist,-song-(sorted-by-itemInSession)-and-user-(first-and-last-name)-for-userid-=-10,-sessionid-=-182">&#182;</a></h3><h3 id="3.-Give-me-every-user-name-(first-and-last)-in-my-music-app-history-who-listened-to-the-song-'All-Hands-Against-His-Own'">3. Give me every user name (first and last) in my music app history who listened to the song 'All Hands Against His Own'<a class="anchor-link" href="#3.-Give-me-every-user-name-(first-and-last)-in-my-music-app-history-who-listened-to-the-song-'All-Hands-Against-His-Own'">&#182;</a></h3>
+<h2 id="Create-queries-to-ask-the-following-three-questions-of-the-data">Create queries to ask the following three questions of the data<a class="anchor-link" href="#Create-queries-to-ask-the-following-three-questions-of-the-data">&#182;</a></h2><p><em>### 1. Give me the artist, song title and song's length in the music app history that was heard during  sessionId = 338, and itemInSession  = 4</em></p>
+<p><em>### 2. Give me only the following: name of artist, song (sorted by itemInSession) and user (first and last name) for userid = 10, sessionid = 182</em></p>
+<p><em>### 3. Give me every user name (first and last) in my music app history who listened to the song 'All Hands Against His Own'</em></p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[62]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## TO-DO: Query 1:  Give me the artist, song title and song&#39;s length in the music app history that was heard during \</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Query 1:  Give me the artist, song title and song&#39;s length in the music app history that was heard during \</span>
 <span class="c1">## sessionId = 338, and itemInSession = 4</span>
 
 <span class="c1">#initial draft</span>
@@ -13466,41 +13447,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="s1">&#39;DROP TABLE sessions&#39;</span>
-<span class="n">session</span><span class="o">.</span><span class="n">execute</span> <span class="p">(</span><span class="n">q</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[24]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;cassandra.cluster.ResultSet at 0x7fb92e8080b8&gt;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">create_query</span> <span class="o">=</span> <span class="s2">&quot;CREATE TABLE IF NOT EXISTS &quot;</span>
@@ -13513,15 +13460,15 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">create1</span> <span class="o">=</span> <span class="n">create_query</span> <span class="o">+</span> <span class="s2">&quot;sessions (artist text </span><span class="se">\</span>
 <span class="s2">                    ,song text </span><span class="se">\</span>
-<span class="s2">                    ,length text </span><span class="se">\</span>
-<span class="s2">                    ,sessionID text </span><span class="se">\</span>
-<span class="s2">                    ,itemInSession text </span><span class="se">\</span>
-<span class="s2">                    ,PRIMARY KEY (sessionID,itemInSession,artist,song,length))&quot;</span>
+<span class="s2">                    ,length float </span><span class="se">\</span>
+<span class="s2">                    ,sessionID int </span><span class="se">\</span>
+<span class="s2">                    ,itemInSession int </span><span class="se">\</span>
+<span class="s2">                    ,PRIMARY KEY (sessionID,itemInSession))&quot;</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">create1</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -13536,6 +13483,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>For table 'sessions', the sessionID was used as a partition key and itemInSession as a clustering column so we can filter by those columns to obtain the result.</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 
 <pre><code>~
 query = "INSERT INTO sessions (artist, song, length, sessionID, itemInSession)"
@@ -13546,77 +13501,21 @@ query = query + " VALUES (%s, %s, %s, %s, %s)"</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># We have provided part of the code to set up the CSV file. Please complete the Apache Cassandra code below#</span>
-<span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;event_datafile_new.csv&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;event_datafile_new.csv&#39;</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">csvreader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-    <span class="nb">next</span><span class="p">(</span><span class="n">csvreader</span><span class="p">)</span> <span class="c1"># skip header</span>
+    <span class="nb">next</span><span class="p">(</span><span class="n">csvreader</span><span class="p">)</span> 
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">csvreader</span><span class="p">:</span>
-<span class="c1">## TO-DO: Assign the INSERT statements into the `query` variable</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO sessions (artist, song, length, sessionID, itemInSession)&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO sessions (sessionID, itemInSession, artist, song, length)&quot;</span>
         <span class="n">query</span> <span class="o">=</span> <span class="n">query</span> <span class="o">+</span> <span class="s2">&quot; VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;</span>
-        <span class="c1">## TO-DO: Assign which column element should be assigned for each column in the INSERT statement.</span>
-        <span class="c1">## For e.g., to INSERT artist_name and user first_name, you would change the code below to `line[0], line[1]`</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">line</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span><span class="n">line</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="n">line</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">8</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">line</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">5</span><span class="p">])))</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Do-a-SELECT-to-verify-that-the-data-have-been-inserted-into-each-table">Do a SELECT to verify that the data have been inserted into each table<a class="anchor-link" href="#Do-a-SELECT-to-verify-that-the-data-have-been-inserted-into-each-table">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## TO-DO: Add in the SELECT statement to verify the data was entered into the table</span>
-<span class="n">select</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM sessions WHERE sessionID = &#39;139&#39;&quot;</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">rows</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">select</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>139 1 Des&#39;ree You Gotta Be 246.30812
-139 3 Mr Oizo Flat 55 144.03873
-139 4 Tamba Trio Quem Quiser Encontrar O Amor 177.18812
-139 5 The Mars Volta Eriatarka 380.42077
-139 6 Infected Mushroom Becoming Insane 440.2673
-139 7 Blue October / Imogen Heap Congratulations 241.3971
-139 8 Girl Talk Once again 160.15628
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -13630,12 +13529,12 @@ query = query + " VALUES (%s, %s, %s, %s, %s)"</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#executing 1st query</span>
-<span class="n">query1</span> <span class="o">=</span> <span class="s2">&quot;SELECT artist, song, length FROM sessions WHERE sessionId = &#39;338&#39; AND</span><span class="se">\</span>
-<span class="s2">         itemInSession = &#39;4&#39;;&quot;</span>
+<span class="n">query1</span> <span class="o">=</span> <span class="s2">&quot;SELECT artist, song, length FROM sessions WHERE sessionId = 338 AND</span><span class="se">\</span>
+<span class="s2">         itemInSession = 4;&quot;</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">rows</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query1</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -13658,7 +13557,7 @@ query = query + " VALUES (%s, %s, %s, %s, %s)"</code></pre>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Faithless Music Matters (Mark Knight Dub) 495.3073
+<pre>Faithless Music Matters (Mark Knight Dub) 495.30731201171875
 </pre>
 </div>
 </div>
@@ -13676,18 +13575,18 @@ query = query + " VALUES (%s, %s, %s, %s, %s)"</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">create2</span> <span class="o">=</span> <span class="n">create_query</span> <span class="o">+</span> <span class="s2">&quot;user_sessions (artist text </span><span class="se">\</span>
 <span class="s2">                    ,song text </span><span class="se">\</span>
 <span class="s2">                    ,user_firstname text </span><span class="se">\</span>
 <span class="s2">                    ,user_lastname text </span><span class="se">\</span>
-<span class="s2">                    ,userID text </span><span class="se">\</span>
-<span class="s2">                    ,sessionID text </span><span class="se">\</span>
-<span class="s2">                    ,itemInSession text </span><span class="se">\</span>
-<span class="s2">                    ,PRIMARY KEY (userID, itemInSession, sessionID)) </span><span class="se">\</span>
-<span class="s2">                    WITH CLUSTERING ORDER BY (itemInSession DESC, sessionID DESC);&quot;</span>
+<span class="s2">                    ,userID int </span><span class="se">\</span>
+<span class="s2">                    ,sessionID int </span><span class="se">\</span>
+<span class="s2">                    ,itemInSession int </span><span class="se">\</span>
+<span class="s2">                    ,PRIMARY KEY ((userID,sessionID), itemInSession))&quot;</span>
+                    <span class="c1">#WITH CLUSTERING ORDER BY (itemInSession DESC, sessionID DESC)</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">create2</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -13699,22 +13598,27 @@ query = query + " VALUES (%s, %s, %s, %s, %s)"</code></pre>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>For table 'user_sessions', userID &amp; sessionID were used to create a composite partition key, so we can filter by those columns to obtain the result.</strong></p>
+<p><strong>itemInSession was used as clustering columns for sorting purposes.</strong></p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[54]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">csvreader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-    <span class="nb">next</span><span class="p">(</span><span class="n">csvreader</span><span class="p">)</span> <span class="c1"># skip header</span>
+    <span class="nb">next</span><span class="p">(</span><span class="n">csvreader</span><span class="p">)</span> 
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">csvreader</span><span class="p">:</span>
-<span class="c1">## TO-DO: Assign the INSERT statements into the `query` variable</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO user_sessions (artist, song, user_firstname, user_lastname, userID, </span><span class="se">\</span>
-<span class="s2">        sessionID, itemInSession)&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO user_sessions (userID, sessionID, itemInSession, artist, song, user_firstname, user_lastname)&quot;</span>
         <span class="n">query</span> <span class="o">=</span> <span class="n">query</span> <span class="o">+</span> <span class="s2">&quot; VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;</span>
-        <span class="c1">## TO-DO: Assign which column element should be assigned for each column in the INSERT statement.</span>
-        <span class="c1">## For e.g., to INSERT artist_name and user first_name, you would change the code below to `line[0], line[1]`</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">line</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">line</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">line</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">10</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">8</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">line</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">line</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
 </pre></div>
 
     </div>
@@ -13724,81 +13628,15 @@ query = query + " VALUES (%s, %s, %s, %s, %s)"</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## TO-DO: Add in the SELECT statement to verify the data was entered into the table</span>
-<span class="n">select2</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM user_sessions WHERE userID = &#39;10&#39;&quot;</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">rows</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">select2</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>10 7 484 Ricardo Arjona Como Duele (Album) Sylvie Cruz
-10 6 484 Watain Sworn To The Dark Sylvie Cruz
-10 5 484 Rilo Kiley A Man/Me/Then Jim (Album Version) Sylvie Cruz
-10 4 484 Percubaba Intro Sylvie Cruz
-10 3 484 Laurel &amp; Hardy At the Ball_ That&#39;s All Sylvie Cruz
-10 3 286 The White Stripes Seven Nation Army (Album Version) Sylvie Cruz
-10 3 182 Lonnie Gordon Catch You Baby (Steve Pitron &amp; Max Sanna Radio Edit) Sylvie Cruz
-10 2 484 Eminem Criminal Sylvie Cruz
-10 2 339 Wu-Tang Clan Impossible Sylvie Cruz
-10 2 182 Sebastien Tellier Kilometer Sylvie Cruz
-10 1 877 John Mayer Love Song For No One Sylvie Cruz
-10 1 484 KC And The Sunshine Band Get Down Tonight (Miami Mix) Sylvie Cruz
-10 1 339 Vader Carnal Sylvie Cruz
-10 1 272 Amy Winehouse You Know I&#39;m No Good Sylvie Cruz
-10 1 220 Nightwish The Islander Sylvie Cruz
-10 1 210 Klaus Badelt Moonlight Serenade Sylvie Cruz
-10 1 182 Three Drives Greece 2000 Sylvie Cruz
-10 0 9 Black Eyed Peas Pump It Sylvie Cruz
-10 0 877 Molotov Marciano (I Turned Into A Martian) Sylvie Cruz
-10 0 864 Matt Redman Blessed Be Your Name Sylvie Cruz
-10 0 717 Chromeo Momma&#39;s Boy Sylvie Cruz
-10 0 681 Brad Paisley With Andy Griffith Waitin&#39; On A Woman Sylvie Cruz
-10 0 677 Samael God&#39;s Snake Sylvie Cruz
-10 0 577 Cameo Word Up! Sylvie Cruz
-10 0 345 Pavement Mercy:The Laundromat Sylvie Cruz
-10 0 220 The Swell Season If You Want Me (Live) Sylvie Cruz
-10 0 182 Down To The Bone Keep On Keepin&#39; On Sylvie Cruz
-10 0 1005 I Set My Friends On Fire But The NUNS Are Watching Sylvie Cruz
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[61]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## TO-DO: Query 2: Give me only the following: name of artist, song (sorted by itemInSession) and user (first and last name)\</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Query 2: Give me only the following: name of artist, song (sorted by itemInSession) and user (first and last name)\</span>
 <span class="c1">## for userid = 10, sessionid = 182</span>
 <span class="n">query2</span> <span class="o">=</span> <span class="s2">&quot;SELECT artist, song, user_firstname, user_lastname FROM user_sessions WHERE </span><span class="se">\</span>
-<span class="s2">            itemInSession = &#39;1&#39; AND </span><span class="se">\</span>
-<span class="s2">            sessionid = &#39;182&#39; AND </span><span class="se">\</span>
-<span class="s2">            userID = &#39;10&#39;&quot;</span>
+<span class="s2">            itemInSession = 1 AND </span><span class="se">\</span>
+<span class="s2">            sessionid = 182 AND </span><span class="se">\</span>
+<span class="s2">            userID = 10&quot;</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="n">rows</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
@@ -13841,13 +13679,13 @@ query = query + " VALUES (%s, %s, %s, %s, %s)"</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[79]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">create3</span> <span class="o">=</span> <span class="n">create_query</span> <span class="o">+</span> <span class="s2">&quot;songs (user_firstname text </span><span class="se">\</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">create3</span> <span class="o">=</span> <span class="n">create_query</span> <span class="o">+</span> <span class="s2">&quot;songs (user_id int, user_firstname text </span><span class="se">\</span>
 <span class="s2">                    ,user_lastname text </span><span class="se">\</span>
 <span class="s2">                    ,song text </span><span class="se">\</span>
-<span class="s2">                    ,PRIMARY KEY (song,user_firstname,user_lastname))&quot;</span>
+<span class="s2">                    ,PRIMARY KEY (song, user_id))&quot;</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">create3</span><span class="p">)</span>
@@ -13860,21 +13698,26 @@ query = query + " VALUES (%s, %s, %s, %s, %s)"</code></pre>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>For table 'songs', song was used to partition the data, with user_id used to make up a unique key</strong></p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[81]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">csvreader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-    <span class="nb">next</span><span class="p">(</span><span class="n">csvreader</span><span class="p">)</span> <span class="c1"># skip header</span>
+    <span class="nb">next</span><span class="p">(</span><span class="n">csvreader</span><span class="p">)</span> 
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">csvreader</span><span class="p">:</span>
-<span class="c1">## TO-DO: Assign the INSERT statements into the `query` variable</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO songs (user_firstname, user_lastname, song)&quot;</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="n">query</span> <span class="o">+</span> <span class="s2">&quot; VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;</span>
-        <span class="c1">## TO-DO: Assign which column element should be assigned for each column in the INSERT statement.</span>
-        <span class="c1">## For e.g., to INSERT artist_name and user first_name, you would change the code below to `line[0], line[1]`</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">line</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">line</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO songs (song, user_id, user_firstname, user_lastname)&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">query</span> <span class="o">+</span> <span class="s2">&quot; VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">10</span><span class="p">]),</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">line</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
 </pre></div>
 
     </div>
@@ -13884,10 +13727,10 @@ query = query + " VALUES (%s, %s, %s, %s, %s)"</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[84]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## TO-DO: Query 3: Give me every user name (first and last) in my music app history who listened to the song &#39;All Hands Against His Own&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Query 3: Give me every user name (first and last) in my music app history who listened to the song &#39;All Hands Against His Own&#39;</span>
 
 <span class="n">query3</span> <span class="o">=</span> <span class="s2">&quot;SELECT user_firstname, user_lastname FROM songs WHERE song = &#39;All Hands Against His Own&#39;;&quot;</span>
 
@@ -13914,8 +13757,8 @@ query = query + " VALUES (%s, %s, %s, %s, %s)"</code></pre>
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Jacqueline Lynch
-Sara Johnson
 Tegan Levine
+Sara Johnson
 </pre>
 </div>
 </div>
@@ -13933,12 +13776,10 @@ Tegan Levine
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[85]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## TO-DO: Drop the table before closing out the sessions</span>
-
-<span class="n">q</span> <span class="o">=</span> <span class="s1">&#39;DROP TABLE songs&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="s1">&#39;DROP TABLE songs&#39;</span>
 <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
 </pre></div>
 
@@ -13952,13 +13793,13 @@ Tegan Levine
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[85]:</div>
+    <div class="prompt output_prompt">Out[19]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;cassandra.cluster.ResultSet at 0x7fb908f00ef0&gt;</pre>
+<pre>&lt;cassandra.cluster.ResultSet at 0x7f5eeb863240&gt;</pre>
 </div>
 
 </div>
@@ -13969,7 +13810,7 @@ Tegan Levine
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[86]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="s1">&#39;DROP TABLE sessions&#39;</span>
@@ -13986,13 +13827,13 @@ Tegan Levine
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[86]:</div>
+    <div class="prompt output_prompt">Out[20]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;cassandra.cluster.ResultSet at 0x7fb90408e240&gt;</pre>
+<pre>&lt;cassandra.cluster.ResultSet at 0x7f5ec6c25358&gt;</pre>
 </div>
 
 </div>
@@ -14003,7 +13844,7 @@ Tegan Levine
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[87]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="s1">&#39;DROP TABLE user_sessions&#39;</span>
@@ -14020,13 +13861,13 @@ Tegan Levine
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[87]:</div>
+    <div class="prompt output_prompt">Out[21]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;cassandra.cluster.ResultSet at 0x7fb92e806b00&gt;</pre>
+<pre>&lt;cassandra.cluster.ResultSet at 0x7f5eeb85f940&gt;</pre>
 </div>
 
 </div>
@@ -14044,7 +13885,7 @@ Tegan Levine
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[88]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">session</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
